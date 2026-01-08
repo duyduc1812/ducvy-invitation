@@ -59,7 +59,7 @@ export default function Page() {
     setShowEnvelopeOverlay(false);
 
     // schedule reveal: cứ 500ms hiện thêm 1 block
-    const delays = [700, 900, 900, 1000, 1000, 1000, 900, 1200, 1600]; // tổng 8 block
+    const delays = [1400, 1800, 1800, 2000, 2000, 2000, 1800, 2400, 3200]; // tổng 8 block
     let i = 0;
     const timers: number[] = [];
 
@@ -104,52 +104,57 @@ export default function Page() {
       <AnimatePresence mode="wait">
         {/* ========= INTRO TERMINAL ========= */}
         {stage === "intro" && (
-          <motion.section
-            key="intro"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="relative flex min-h-screen items-center justify-center bg-black"
-          >
-		   {/* Background image */}
-			<div
-			  className="absolute inset-0 bg-cover bg-center"
-			  style={{ backgroundImage: "url('/bg/terminal-bg.png')" }}
-			/>
-			<div className="absolute inset-0 bg-black/40" />
-			
-			{/* Terminal window */}
-			
-            <div className="relative z-10 w-full max-w-3xl rounded-xl border border-white/10 bg-[#0f1220]/90 shadow-2xl backdrop-blur">
-			  {/* MacOS dots */}
-			  <div className="flex items-center gap-2 px-4 py-3">
-				<span className="h-3 w-3 rounded-full bg-red-500" />
-				<span className="h-3 w-3 rounded-full bg-yellow-400" />
-				<span className="h-3 w-3 rounded-full bg-green-500" />
-				<span className="ml-3 text-xs text-white/50">
-				  {getLastLoginString()}
-				</span>
-			  </div>
+  <motion.section
+    key="intro"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="relative flex min-h-screen items-center justify-center bg-black px-6"
+  >
+    {/* Background image */}
+    <div
+      className="absolute inset-0 bg-cover bg-center"
+      style={{ backgroundImage: "url('/bg/terminal-bg.png')" }}
+    />
+    <div className="absolute inset-0 bg-black/40" />
 
-			  <div className="border-t border-white/10 px-4 py-4">
-				<pre className="whitespace-pre-wrap font-mono text-sm leading-6 text-[#9CDCFE]">
-				  <TypeAnimation
-					sequence={[
-					  ...introLines,
-					  650,
-					  () => {
-						setStage("landing");
-					  },
-					]}
-					speed={70}
-					repeat={0}
-					cursor
-				  />
-				</pre>
-			  </div>
-			</div>
-		  </motion.section>
-        )}
+    {/* ✅ Wrapper: bắt buộc flex-col để xếp dọc */}
+    <div className="relative z-10 flex w-full max-w-3xl flex-col items-center">
+      {/* Terminal window */}
+      <div className="w-full rounded-xl border border-white/10 bg-[#0f1220]/90 shadow-2xl backdrop-blur">
+        <div className="flex items-center gap-2 px-4 py-3">
+          <span className="h-3 w-3 rounded-full bg-red-500" />
+          <span className="h-3 w-3 rounded-full bg-yellow-400" />
+          <span className="h-3 w-3 rounded-full bg-green-500" />
+          <span className="ml-3 text-xs text-white/60">
+            {getLastLoginString()}
+          </span>
+        </div>
+
+        <div className="border-t border-white/10 px-4 py-4">
+          <pre className="whitespace-pre-wrap font-mono text-sm leading-6 text-[#9CDCFE]">
+            <TypeAnimation
+              sequence={[
+                ...introLines,
+                1200, // ✅ tăng delay để bạn nhìn thấy “Chờ Xíuuuuu” rõ hơn
+                () => setStage("landing"),
+              ]}
+              speed={70}
+              repeat={0}
+              cursor
+            />
+          </pre>
+        </div>
+      </div>
+
+      {/* ✅ Text ngay dưới terminal */}
+      <div className="mt-4 animate-pulse text-center font-mono text-xs tracking-widest text-white/80">
+        Chờ Xíuuuuu ᓚ₍⑅^..^₎♡
+      </div>
+    </div>
+  </motion.section>
+)}
+
 
         {/* ========= LANDING CARD (REVEAL DẦN TỪNG DÒNG) ========= */}
         {stage === "landing" && (
@@ -213,7 +218,7 @@ export default function Page() {
                     <span className="text-pink-400">
                       {"💗".repeat(1)}
                     </span>
-                    <span className="mx-2 text-neutral-500">^_^</span>
+                    <span className="mx-2 text-neutral-500">₍^ o⩊o ^₎Ⳋ</span>
                     <span className="text-pink-400">
                       {"💗".repeat(1)}
                     </span>
