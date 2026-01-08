@@ -7,6 +7,24 @@ import { INVITE } from "./content";
 
 type Stage = "intro" | "landing" | "invitation";
 
+function getLastLoginString() {
+  const now = new Date();
+
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  ];
+
+  const dayName = weekdays[now.getDay()];
+  const monthName = months[now.getMonth()];
+  const day = String(now.getDate()).padStart(2, "0");
+  const year = now.getFullYear();
+
+  return `Last login: ${dayName} ${monthName} ${day} ${year} on ducnd`;
+}
+
+
 export default function Page() {
   const [stage, setStage] = useState<Stage>("intro");
 
@@ -23,6 +41,9 @@ export default function Page() {
     return [
       `git clone ${A.toLowerCase()}-${B.toLowerCase()}-invitation.git\n`,
       "cd invitation\n",
+	  "description: Duc & Vy wedding invitation · 24/01/2026",
+	  "milestoneLabel: Milestone Proposal Ceremony",
+	  "milestoneDate: 18/10/2025",
       "npm i\n",
       "npm run build\n",
       "npm run start\n",
@@ -65,14 +86,15 @@ export default function Page() {
   }, [stage]);
 
   const openEnvelope = () => {
-    if (opening) return;
-    setOpening(true);
-    window.setTimeout(() => {
-      setStage("invitation");
-      setOpening(false);
-      setShowEnvelopeOverlay(false);
-    }, 850);
-  };
+	  if (opening) return;
+	  setOpening(true);
+
+	  // cho animation "mở" chạy 1 chút rồi chuyển trang
+	  window.setTimeout(() => {
+		window.location.href = "https://www.ewedinvite.site/MAUVANGXANH";
+	  }, 650);
+	};
+
 
   const A = INVITE.couple.groom.en;
   const B = INVITE.couple.bride.en;
@@ -87,28 +109,46 @@ export default function Page() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6"
+            className="relative flex min-h-screen items-center justify-center bg-black"
           >
-            <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6 shadow">
-              <div className="mb-3 text-sm text-neutral-400">
-                terminal — ducvy-invitation
-              </div>
-              <pre className="whitespace-pre-wrap text-sm leading-6">
-                <TypeAnimation
-                  sequence={[
-                    ...introLines,
-                    650,
-                    () => {
-                      setStage("landing");
-                    },
-                  ]}
-                  speed={70}
-                  repeat={0}
-                  cursor
-                />
-              </pre>
-            </div>
-          </motion.section>
+		   {/* Background image */}
+			<div
+			  className="absolute inset-0 bg-cover bg-center"
+			  style={{ backgroundImage: "url('/bg/terminal-bg.png')" }}
+			/>
+			<div className="absolute inset-0 bg-black/40" />
+			
+			{/* Terminal window */}
+			
+            <div className="relative z-10 w-full max-w-3xl rounded-xl border border-white/10 bg-[#0f1220]/90 shadow-2xl backdrop-blur">
+			  {/* MacOS dots */}
+			  <div className="flex items-center gap-2 px-4 py-3">
+				<span className="h-3 w-3 rounded-full bg-red-500" />
+				<span className="h-3 w-3 rounded-full bg-yellow-400" />
+				<span className="h-3 w-3 rounded-full bg-green-500" />
+				<span className="ml-3 text-xs text-white/50">
+				  {getLastLoginString()}
+				</span>
+			  </div>
+
+			  <div className="border-t border-white/10 px-4 py-4">
+				<pre className="whitespace-pre-wrap font-mono text-sm leading-6 text-[#9CDCFE]">
+				  <TypeAnimation
+					sequence={[
+					  ...introLines,
+					  650,
+					  () => {
+						setStage("landing");
+					  },
+					]}
+					speed={70}
+					repeat={0}
+					cursor
+				  />
+				</pre>
+			  </div>
+			</div>
+		  </motion.section>
         )}
 
         {/* ========= LANDING CARD (REVEAL DẦN TỪNG DÒNG) ========= */}
