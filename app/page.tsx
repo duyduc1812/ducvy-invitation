@@ -21,7 +21,7 @@ function getLastLoginString() {
   const day = String(now.getDate()).padStart(2, "0");
   const year = now.getFullYear();
 
-  return `Last login: ${dayName} ${monthName} ${day} ${year} on ducnd`;
+  return `Last login: ${dayName} ${monthName} ${day} ${year} on duc&vy`;
 }
 
 
