@@ -91,7 +91,7 @@ export default function Page() {
 
 	  // cho animation "mở" chạy 1 chút rồi chuyển trang
 	  window.setTimeout(() => {
-		window.location.href = "https://www.ewedinvite.site/MAUVANGXANH";
+		window.location.href = "https://www.ewedinvite.online/DUYDUCHAVY";
 	  }, 650);
 	};
 
