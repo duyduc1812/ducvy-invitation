@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const SITE_URL = "https://ducvy-invitation.vercel.app";
+const OG_IMAGE = `${SITE_URL}/ogv2.jpg`;
+
 export const metadata: Metadata = {
   title: "Thiệp mời cưới Duy Đức & Hà Vy",
   description: "Trân trọng kính mời bạn đến chung vui cùng chúng tôi 💍",
-  metadataBase: new URL("https://ducvy-invitation.vercel.app"),
+  metadataBase: new URL(SITE_URL),
+
   openGraph: {
     title: "Thiệp mời cưới Duy Đức & Hà Vy",
     description: "Trân trọng kính mời bạn đến chung vui cùng chúng tôi 💍",
-    url: "https://ducvy-invitation.vercel.app",
+    url: SITE_URL,
     siteName: "Duc & Vy Wedding Invitation",
     images: [
       {
-        url: "/og.jpg",
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
         alt: "Thiệp mời cưới Duy Đức & Hà Vy",
@@ -21,11 +25,12 @@ export const metadata: Metadata = {
     locale: "vi_VN",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Thiệp mời cưới Duy Đức & Hà Vy",
     description: "Trân trọng kính mời bạn đến chung vui cùng chúng tôi 💍",
-    images: ["/og.jpg"],
+    images: [OG_IMAGE],
   },
 };
 
