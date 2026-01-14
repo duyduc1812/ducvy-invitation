@@ -41,6 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
+	  <head>
+	    <meta property="og:image" content="https://ducvy-invitation.vercel.app/ogv2.jpg">
+	  </head>
       <body>{children}</body>
     </html>
   );
